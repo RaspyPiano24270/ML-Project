@@ -25,7 +25,14 @@ Severe weather events often result from complex, non-linear temporal patterns in
 * **Accuracy:** Overall correct prediction percentage.
 * **Precision, Recall, F1-score:** Essential metrics for evaluating severe events. They help distinguish between **false alarms** (low precision) and **missed events** (low recall).
 * **Confusion Matrix:** A visualization required to fully understand false positives (false alarms) versus false negatives (missed events).
+## Team Responsibilities
 
+| Team Member | Role | Responsibilities |
+|--------------|------|------------------|
+| **Alvaro Gonzalez** | **Data Prep** | Collected and preprocessed the Kaggle rainfall dataset. Handled data cleaning, normalization, and exploratory data analysis (EDA). Created dataset splits and visualizations for initial model input. |
+| **Eric Gerner** | **Model Development** | Implemented and trained the LSTM model using PyTorch/TensorFlow. Conducted hyperparameter tuning and created baseline comparisons. Logged metrics and generated performance visualizations. |
+| **Ben Johnson-Gomez** | **Evaluation & Documentation** | Evaluated final model performance, compared results with baseline, and summarized metrics. Wrote report sections (Introduction, Discussion, Ethics) and designed the presentation slides. |
+| **All Members** | **Collaboration & Integration** | Contributed to paper writing, testing, version control, and final presentation preparation. |
 ## Setup and Installation
 
 To run this project, clone the repository and install the dependencies listed in `requirements.txt`.
