@@ -1,1 +1,14 @@
-# nothing at the moment
+# --- Data Files ---
+*.csv             # Ignores all CSV files
+*.parquet   
+data/
+
+# --- Python & Environment ---
+__pycache__/
+.ipynb_checkpoints/
+.DS_Store
+
+# --- Deep Learning Artifacts ---
+*.pth             # PyTorch model checkpoints
+*.pt              # PyTorch model files
+logs/             # Training logs
