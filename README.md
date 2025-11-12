@@ -41,3 +41,6 @@ To run this project, clone the repository and install the dependencies listed in
 git clone (https://github.com/RaspyPiano24270/ML-Project.git)
 cd Severe-Weather-Prediction-App
 pip install -r requirements.txt
+
+## Dataset Output
+
