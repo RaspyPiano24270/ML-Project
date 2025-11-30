@@ -1,4 +1,4 @@
-# Severe Weather Prediction App: Rainfall Forecasting via LSTM
+# Severe WeatherOrNot: Rainfall Forecasting via LSTM
 
 ## Project Overview
 This project develops a deep learning model to provide short-term, accurate predictions of severe weather events, such as rainfall amount or storm intensity, using historical atmospheric data. Accurate near-future forecasts are critical for flash flood warnings and disaster preparedness, improving upon traditional statistical forecasting methods.
@@ -40,5 +40,4 @@ To run this project, clone the repository and install the dependencies listed in
 ```bash
 git clone (https://github.com/RaspyPiano24270/ML-Project.git)
 cd Severe-Weather-Prediction-App
-pip install -r requirements.txt
-```
+py -m pip install -r requirements.txt
