@@ -8,7 +8,7 @@ from sklearn.metrics import classification_report, confusion_matrix, accuracy_sc
 from data_loader import load_kaggle_csv
 
 # --- CONFIGURATION ---
-FILE_PATH = '../data/usa_rain_prediction_dataset.csv'
+FILE_PATH = '../data/rain_prediction_dataset.csv'
 MODEL_PATH = '../models/lstm_weather_model.h5' # Ensure this is your Classification model
 LOOKBACK = 14
 TARGET_COL_NAME = 'Rain Tomorrow'

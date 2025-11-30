@@ -1,5 +1,4 @@
 # --- Data Files ---
-*.csv             # Ignores all CSV files
 *.parquet   
 data/
 
