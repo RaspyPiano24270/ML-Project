@@ -1,7 +1,8 @@
 import os
 import numpy as np
 import matplotlib.pyplot as plt
-from tensorflow.keras.models import Sequential
+import numpy as np
+from sklearn.metrics import mean_squared_error, mean_absolute_error
 from tensorflow.keras.layers import LSTM, Dense, Dropout
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.callbacks import EarlyStopping  
