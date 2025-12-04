@@ -6,7 +6,7 @@ from sklearn.preprocessing import MinMaxScaler
 from data_loader import load_kaggle_csv
 
 # --- CONFIGURATION ---
-FILE_PATH = '../data/usa_rain_prediction_dataset.csv'
+FILE_PATH = '../data/rain_prediction_dataset.csv'
 MODEL_SAVE_PATH = '../models/lstm_regressor.h5'
 TARGET_COL_NAME = 'Precipitation'  # We are predicting the AMOUNT of rain
 LOOKBACK = 14  # Days to look back

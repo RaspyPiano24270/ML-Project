@@ -11,3 +11,8 @@ __pycache__/
 *.pth             # PyTorch model checkpoints
 *.pt              # PyTorch model files
 logs/             # Training logs
+
+# Ignore Model Files
+*.h5
+*.keras
+models/
