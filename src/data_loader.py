@@ -3,8 +3,7 @@ import numpy as np
 
 def load_kaggle_csv(filepath):
     """
-    Loads, filters, and cleans the Kaggle weather dataset.
-    Returns a cleaned numeric DataFrame sorted by date.
+    Loads, filters, and cleans the local weather dataset.
     """
     print(f"Loading data from {filepath}...")
     try:
