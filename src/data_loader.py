@@ -4,7 +4,6 @@ import numpy as np
 def load_kaggle_csv(filepath):
     """
     Loads, filters, and cleans the local weather dataset.
-    Assumes 'Rain Tomorrow' is already 0/1.
     """
     print(f"Loading data from {filepath}...")
     try:

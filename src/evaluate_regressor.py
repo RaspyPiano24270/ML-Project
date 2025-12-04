@@ -12,7 +12,7 @@ import seaborn as sns
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # 2. Build exact paths to the data and model
-FILE_PATH = os.path.join(SCRIPT_DIR, '..', 'data', 'usa_rain_prediction_dataset.csv')
+FILE_PATH = os.path.join(SCRIPT_DIR, '..', 'data', 'rain_prediction_dataset.csv')
 MODEL_PATH = os.path.join(SCRIPT_DIR, '..', 'models', 'lstm_regressor.h5')
 
 TARGET_COL_NAME = 'Precipitation'
