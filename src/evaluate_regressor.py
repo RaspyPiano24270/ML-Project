@@ -5,6 +5,8 @@ from tensorflow.keras.models import load_model
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import mean_squared_error, mean_absolute_error
 from data_loader import load_kaggle_csv
+import seaborn as sns
+
 
 # --- CONFIGURATION (BULLETPROOF PATHS) ---
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -83,3 +85,32 @@ print("="*30)
 print(f"Mean Squared Error (MSE): {mse:.4f}")
 print(f"Mean Absolute Error (MAE): {mae:.4f} mm")
 print("-" * 30)
+
+
+# --- VISUALIZATION: SCATTER PLOT ---
+plt.figure(figsize=(10, 8))
+sns.set_style("whitegrid")
+
+# 1. Flatten the arrays to make them simple lists
+actuals = y_test_actual.flatten()
+preds = predictions_actual.flatten()
+
+# 2. Create the Scatter Plot
+# Alpha=0.5 makes dots transparent so you can see where they pile up
+sns.scatterplot(x=actuals, y=preds, alpha=0.5, color='blue', label='Data Points')
+
+# 3. Add the "Perfect Prediction" Line (The 45-degree diagonal)
+# If a dot lands on this red line, the prediction was 100% correct.
+min_val = min(actuals.min(), preds.min())
+max_val = max(actuals.max(), preds.max())
+plt.plot([min_val, max_val], [min_val, max_val], color='red', linestyle='--', linewidth=2, label='Perfect Prediction')
+
+# 4. Labels and Title
+plt.title(f'Regression Performance: Actual vs Predicted Rainfall\nMAE: {mae:.2f} mm', fontsize=14)
+plt.xlabel('Actual Rainfall (mm)', fontsize=12)
+plt.ylabel('Predicted Rainfall (mm)', fontsize=12)
+plt.legend()
+
+# 5. Show
+plt.tight_layout()
+plt.show()
