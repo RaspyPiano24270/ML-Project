@@ -6,11 +6,10 @@ from tensorflow.keras.layers import LSTM, Dense, Dropout
 from tensorflow.keras.optimizers import Adam 
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.utils import class_weight   
-from data_loader import load_kaggle_csv
+from data_loader import load_kaggle_csv, make_sequences
 
 # --- CONFIGURATION ---
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-FILE_PATH = os.path.join(SCRIPT_DIR, '..', 'data', 'rain_prediction_dataset.csv')
 MODEL_SAVE_PATH = os.path.join(SCRIPT_DIR, '..', 'models', 'lstm_classifier.h5')
 
 TARGET_COL_NAME = 'Rain Tomorrow'
@@ -20,7 +19,7 @@ EPOCHS = 30
 LEARNING_RATE = 0.001 
 
 # 1. Load Data
-df = load_kaggle_csv(FILE_PATH)
+df = load_kaggle_csv(target_col=TARGET_COL_NAME)
 if df is None: exit()
 
 values = df.values
@@ -30,15 +29,8 @@ target_col_idx = df.columns.get_loc(TARGET_COL_NAME)
 scaler = MinMaxScaler(feature_range=(0, 1))
 scaled_data = scaler.fit_transform(values)
 
-# 3. Sequences
-def create_sequences(data, lookback_steps, target_idx):
-    X, y = [], []
-    for i in range(len(data) - lookback_steps):
-        X.append(data[i:i+lookback_steps, :])
-        y.append(data[i+lookback_steps, target_idx])
-    return np.array(X), np.array(y)
-
-X, y = create_sequences(scaled_data, LOOKBACK, target_col_idx)
+# 3. Create Sequences
+X, y = make_sequences(scaled_data, LOOKBACK, target_col_idx)
 
 # 4. Split
 train_size = int(len(X) * 0.8)
@@ -46,6 +38,7 @@ X_train, X_test = X[:train_size], X[train_size:]
 y_train, y_test = y[:train_size], y[train_size:]
 
 # --- CLASS WEIGHTS ---
+# Critical for fixing the "Lazy Model" problem
 class_weights = class_weight.compute_class_weight(
     class_weight='balanced',
     classes=np.unique(y_train),
@@ -57,7 +50,7 @@ print(f"Class Weights: No Rain={class_weights[0]:.2f}, Rain={class_weights[1]:.2
 # 5. Build Model
 model = Sequential()
 model.add(LSTM(64, return_sequences=True, input_shape=(X_train.shape[1], X_train.shape[2])))
-model.add(Dropout(0.3)) # Increased Dropout slightly
+model.add(Dropout(0.3)) 
 model.add(LSTM(32, return_sequences=False))
 model.add(Dropout(0.3))
 model.add(Dense(1, activation='sigmoid'))
@@ -73,16 +66,16 @@ history = model.fit(
     epochs=EPOCHS, 
     batch_size=BATCH_SIZE, 
     validation_data=(X_test, y_test),
-    class_weight=class_weights_dict, # <--- Apply weights here
+    class_weight=class_weights_dict, 
     verbose=1
 )
 
 model.save(MODEL_SAVE_PATH)
-print("Model saved.")
+print(f"Classifier model saved to {MODEL_SAVE_PATH}")
 
 # 7. Plot
 plt.figure(figsize=(10, 5))
-plt.plot(history.history['loss'], label='Train Loss')     # Changed to Loss (more informative than accuracy here)
+plt.plot(history.history['loss'], label='Train Loss')     
 plt.plot(history.history['val_loss'], label='Val Loss')
 plt.title(f'Training Progress (LR={LEARNING_RATE})')
 plt.xlabel('Epochs')

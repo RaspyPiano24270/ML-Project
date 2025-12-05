@@ -1,3 +1,5 @@
+# Was having major issues finding the dataset so I created this
+
 import os
 
 print("--- DEBUGGING PATHS ---")
