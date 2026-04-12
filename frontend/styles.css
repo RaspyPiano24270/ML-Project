@@ -1,0 +1,166 @@
+:root {
+  --bg: #f0eadf;
+  --ink: #12223a;
+  --accent: #0b6e4f;
+  --accent-2: #d1495b;
+  --card: #fffdf8;
+  --line: #d8cfbf;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Space Grotesk", sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 15% 20%, #f8f4e8 0, #f0eadf 35%, #e6dece 100%);
+  min-height: 100vh;
+}
+
+.shell {
+  width: min(1100px, 92vw);
+  margin: 2rem auto 3rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.hero h1 {
+  margin: 0.2rem 0;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  letter-spacing: -0.03em;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.8rem;
+  margin-bottom: 0.3rem;
+  color: var(--accent-2);
+}
+
+.sub {
+  margin: 0;
+}
+
+.panel {
+  border: 2px solid var(--line);
+  border-radius: 18px;
+  background: var(--card);
+  padding: 1rem;
+  display: grid;
+  gap: 0.8rem;
+  box-shadow: 0 12px 26px rgba(18, 34, 58, 0.08);
+}
+
+.row {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.row.grow {
+  min-height: 300px;
+}
+
+label {
+  font-weight: 600;
+}
+
+input,
+textarea,
+button,
+pre {
+  font-family: "IBM Plex Mono", monospace;
+}
+
+input,
+textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 0.7rem;
+  background: #fff;
+  color: var(--ink);
+}
+
+textarea {
+  min-height: 280px;
+  resize: vertical;
+}
+
+.actions {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+button {
+  border: 0;
+  border-radius: 10px;
+  padding: 0.65rem 1rem;
+  cursor: pointer;
+  background: #e5dfd1;
+  color: var(--ink);
+  font-weight: 600;
+  transition: transform 0.15s ease, filter 0.2s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.04);
+}
+
+button.primary {
+  background: var(--accent);
+  color: #ffffff;
+}
+
+#status {
+  white-space: pre-wrap;
+  border: 1px dashed var(--line);
+  border-radius: 10px;
+  padding: 0.75rem;
+  min-height: 48px;
+  margin: 0;
+  background: #fbf8f0;
+}
+
+.results {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.card {
+  background: var(--card);
+  border: 2px solid var(--line);
+  border-radius: 16px;
+  padding: 1rem;
+}
+
+.card h2 {
+  margin: 0 0 0.8rem;
+}
+
+.card p {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid var(--line);
+  padding-top: 0.6rem;
+}
+
+@media (max-width: 700px) {
+  .shell {
+    margin-top: 1.2rem;
+  }
+
+  .row.grow {
+    min-height: 220px;
+  }
+
+  textarea {
+    min-height: 200px;
+  }
+}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StormCast Console</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <p class="eyebrow">StormCast LSTM</p>
+      <h1>Forecast Command Deck</h1>
+      <p class="sub">Paste recent weather rows and run both models in one shot.</p>
+    </section>
+
+    <section class="panel">
+      <div class="row">
+        <label for="apiBase">API Base URL</label>
+        <input id="apiBase" type="text" value="http://127.0.0.1:8000" />
+      </div>
+
+      <div class="row">
+        <label for="threshold">Rain Threshold</label>
+        <input id="threshold" type="number" value="0.5" min="0" max="1" step="0.01" />
+      </div>
+
+      <div class="row grow">
+        <label for="rowsJson">Rows JSON</label>
+        <textarea id="rowsJson" spellcheck="false"></textarea>
+      </div>
+
+      <div class="actions">
+        <button id="loadMeta">Load Metadata</button>
+        <button id="runPredict" class="primary">Run Forecast</button>
+      </div>
+
+      <pre id="status"></pre>
+    </section>
+
+    <section class="results">
+      <article class="card">
+        <h2>Classifier</h2>
+        <p><span>Label</span><strong id="classLabel">-</strong></p>
+        <p><span>Rain Probability</span><strong id="classProb">-</strong></p>
+      </article>
+      <article class="card">
+        <h2>Regressor</h2>
+        <p><span>Precipitation (mm)</span><strong id="regValue">-</strong></p>
+      </article>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
