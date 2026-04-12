@@ -1,16 +1,26 @@
-# --- Data Manipulation ---
-pandas
-numpy
+# --- Core Data and ML ---
+numpy>=1.26
+pandas>=2.0
+scikit-learn>=1.4
+tensorflow>=2.16
 
-# --- Machine Learning & Preprocessing ---
-scikit-learn
-tensorflow
+# --- Visualization ---
+matplotlib>=3.8
+seaborn>=0.13
 
-# --- Visualization & Evaluation ---
-matplotlib
-seaborn
+# --- Serving ---
+fastapi>=0.111
+uvicorn>=0.30
+pydantic>=2.8
+prometheus-client>=0.20
+streamlit>=1.36
 
-# --- Database & APIs ---
-sqlalchemy
-psycopg2-binary
-requests
+# --- Experiment Tracking ---
+mlflow>=2.14
+
+# --- Utilities ---
+requests>=2.32
+
+# --- Testing ---
+pytest>=8.2
+httpx>=0.27
