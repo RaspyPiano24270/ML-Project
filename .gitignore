@@ -1,18 +1,43 @@
-# --- Data Files ---
-*.parquet   
-data/
-
-# --- Python & Environment ---
+# --- Python Cache and Build ---
 __pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+
+# --- Virtual Environments ---
+.venv/
+venv/
+env/
+
+# --- Notebook and Editor Artifacts ---
 .ipynb_checkpoints/
+.vscode/
+
+# --- OS Artifacts ---
 .DS_Store
+Thumbs.db
 
-# --- Deep Learning Artifacts ---
-*.pth             # PyTorch model checkpoints
-*.pt              # PyTorch model files
-logs/             # Training logs
+# --- Data and Outputs ---
+data/
+*.parquet
+outputs/
 
-# Ignore Model Files
+# --- Model and Training Artifacts ---
+models/
 *.h5
 *.keras
-models/
+*.pth
+*.pt
+logs/
+mlruns/
+
+# --- Local Runtime Files ---
+*.log
+*.tmp
+
+# --- Docker Runtime Overrides ---
+docker-compose.override.yml

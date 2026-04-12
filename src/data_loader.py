@@ -1,29 +1,31 @@
-import os
-import pandas as pd
+from pathlib import Path
+from typing import Optional
+
 import numpy as np
-from sklearn.preprocessing import MinMaxScaler
+import pandas as pd
 
 # --- CONFIGURATION ---
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-DEFAULT_DATA_PATH = os.path.join(SCRIPT_DIR, '..', 'data', 'rain_prediction_dataset.csv')
+SCRIPT_DIR = Path(__file__).resolve().parent
+DEFAULT_DATA_PATH = SCRIPT_DIR.parent / "data" / "rain_prediction_dataset.csv"
 
-def load_kaggle_csv(filepath=None, target_col=None):
-    """
-    Loads, filters for the top city, and cleans the weather dataset.
-    Args:
-        filepath (str): Optional. If None, uses the default path.
-        target_col (str): Optional. Checks if this column exists.
-    """
-    if filepath is None:
-        filepath = DEFAULT_DATA_PATH
+def load_kaggle_csv(filepath: Optional[str] = None, target_col: Optional[str] = None) -> Optional[pd.DataFrame]:
+    """Load and clean the weather dataset used by training and evaluation scripts.
 
-    print(f"Loading data from: {filepath}")
+    Steps:
+    1. Load CSV from provided path or default path.
+    2. Keep only the most common location for a single coherent time series.
+    3. Parse/sort dates and set date index when available.
+    4. Fill missing values and keep numeric columns only.
+    """
+    data_path = Path(filepath) if filepath else DEFAULT_DATA_PATH
+
+    print(f"Loading data from: {data_path}")
     
-    if not os.path.exists(filepath):
-        print(f"Error: File not found at {filepath}")
+    if not data_path.exists():
+        print(f"Error: File not found at {data_path}")
         return None
 
-    df = pd.read_csv(filepath)
+    df = pd.read_csv(data_path)
 
     # 1. Filter for a Single Location
     if 'Location' in df.columns:
@@ -52,12 +54,19 @@ def load_kaggle_csv(filepath=None, target_col=None):
     return numeric_df
 
 # --- HELPER: Sequence Creator ---
-def make_sequences(data, lookback_steps, target_idx):
-    """
-    Converts a 2D array into 3D LSTM sequences.
-    """
+def make_sequences(data: np.ndarray, lookback_steps: int, target_idx: int) -> tuple[np.ndarray, np.ndarray]:
+    """Convert a 2D feature matrix into LSTM sequences and next-step targets."""
+    if lookback_steps <= 0:
+        raise ValueError("lookback_steps must be greater than 0")
+    if data.ndim != 2:
+        raise ValueError("data must be a 2D array")
+    if not 0 <= target_idx < data.shape[1]:
+        raise ValueError("target_idx is out of bounds for data columns")
+    if len(data) <= lookback_steps:
+        raise ValueError("Not enough rows to build sequences with the selected lookback_steps")
+
     X, y = [], []
     for i in range(len(data) - lookback_steps):
-        X.append(data[i:i+lookback_steps, :])
-        y.append(data[i+lookback_steps, target_idx])
+        X.append(data[i : i + lookback_steps, :])
+        y.append(data[i + lookback_steps, target_idx])
     return np.array(X), np.array(y)
