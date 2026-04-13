@@ -48,7 +48,10 @@ py -m venv .venv
 .venv\Scripts\activate
 py -m pip install --upgrade pip
 py -m pip install -r requirements.txt
+py -m pip install -e .
 ```
+
+The editable install keeps `src` importable for local scripts, tests, and CI module commands.
 
 ## Run the Project
 
