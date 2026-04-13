@@ -1,5 +1,13 @@
+import sys
+from pathlib import Path
+
 import numpy as np
 import pandas as pd
+
+# Ensure `src` is importable when editable install is not active.
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
 import src.evaluate_baselines as evaluate_baselines
 

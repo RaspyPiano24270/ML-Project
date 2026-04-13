@@ -99,7 +99,11 @@ def run_walkforward(n_splits: int, max_splits: int = 0) -> dict[str, Any]:
     cls_df = load_kaggle_csv(target_col=CLASSIFIER_TARGET)
     reg_df = load_kaggle_csv(target_col=REGRESSOR_TARGET)
     if cls_df is None or reg_df is None:
-        raise RuntimeError("Failed to load dataset for baseline evaluation")
+        raise RuntimeError(
+            "Failed to load dataset for baseline evaluation. "
+            "Expected data/rain_prediction_dataset.csv to exist "
+            "(or configure the loader accordingly)."
+        )
 
     cls_features = cls_df.drop(columns=[CLASSIFIER_TARGET]).to_numpy()
     cls_target = cls_df[CLASSIFIER_TARGET].to_numpy().astype(int)

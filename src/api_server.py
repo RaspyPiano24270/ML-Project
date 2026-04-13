@@ -67,7 +67,6 @@ class ModelBundle:
 
 bundle = ModelBundle()
 
-
 REQUEST_COUNT = Counter(
     "stormcast_http_requests_total",
     "Total HTTP requests",

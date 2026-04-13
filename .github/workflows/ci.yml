@@ -24,6 +24,25 @@ jobs:
           pip install -r requirements.txt
           pip install -e .
 
+      - name: Create minimal dataset for CI smoke
+        run: |
+          mkdir -p data
+          python - <<'PY'
+          import numpy as np
+          import pandas as pd
+
+          n = 60
+          df = pd.DataFrame({
+              "Temperature": np.linspace(10, 20, n),
+              "Humidity": np.linspace(30, 90, n),
+              "Wind Speed": np.linspace(0, 15, n),
+              "Precipitation": np.linspace(0, 5, n),
+              "Rain Tomorrow": (np.arange(n) % 3 == 0).astype(int),
+          })
+          df.to_csv("data/rain_prediction_dataset.csv", index=False)
+          print("Wrote data/rain_prediction_dataset.csv with", len(df), "rows")
+          PY
+
       - name: Run unit tests
         run: pytest -q
 
